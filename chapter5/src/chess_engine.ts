@@ -1,7 +1,24 @@
 import { PathOrFileDescriptor } from "fs"
 import internal = require("stream")
 
-class Game{}
+class Game{
+    private pieces = Game.MakePieces()
+
+    private static MakePieces() :Piece[]{
+        return[
+            new King('White', 'E', 1),
+            new King('Black', 'E', 8),
+
+            new Queen('White', 'D', 1),
+            new Queen('Black', 'D', 8),
+
+            new Bishop('White', 'C', 1),
+            new Bishop('White', 'F', 1),
+            new Bishop('Black', 'C', 8),
+            new Bishop('Black', 'F', 8),
+        ]
+    }
+}
 //class Piece{}
 //class Position{}
 
@@ -48,8 +65,20 @@ class King extends Piece{
         return distance.Rank < 2 && distance.Raw < 2
     }
 }
-// class Queen extends Piece{}
-// class Bishop extends Piece{}
+
+class Queen extends Piece{
+    canMoveTo(position :Position){
+        let distance = position.distanceFrom(this.position)
+        return distance.Rank < 2 && distance.Raw < 2
+    }
+}
+
+class Bishop extends Piece{
+    canMoveTo(position :Position){
+        let distance = position.distanceFrom(this.position)
+        return distance.Rank < 2 && distance.Raw < 2
+    }
+}
 // class Knight extends Piece{}
 // class Rook extends Piece{}
 // class Pawn extends Piece{}
